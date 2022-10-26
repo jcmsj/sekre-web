@@ -1,6 +1,7 @@
-import { ContentCopy } from "@mui/icons-material";
-import { List, ListItem, ListItemButton, ListItemText, ListItemIcon } from "@mui/material";
+import { ContentCopy, Search as SearchIcon } from "@mui/icons-material";
+import { List, ListItem, ListItemButton, ListItemText, ListItemIcon, AppBar, Toolbar } from "@mui/material";
 import { useLiveQuery } from "dexie-react-hooks"
+import AppTitle from "../components/AppTitle";
 import { db } from "../db"
 
 /**
@@ -20,6 +21,14 @@ export function Item({ sekre }) {
 export default function ListPage() {
     const secrets = useLiveQuery(() => db.secrets.toArray())
     return <>
+        <AppBar position="sticky">
+            <Toolbar>
+                <AppTitle>
+                    Manage secrets
+                </AppTitle>
+                <SearchIcon /> {/* Filter list with input */}
+            </Toolbar>
+        </AppBar>
         <List>
             {secrets?.map(sekre =>
                 <Item key={sekre.id} sekre={sekre} />)
