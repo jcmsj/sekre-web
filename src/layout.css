@@ -1,14 +1,17 @@
 body {
     margin: 0;
-    padding:0;
+    padding: 0;
+    height: 100vh;  /* Fallback */
+    height: 100dvh;  /* https://caniuse.com/?search=dvh */
 }
+
 #root {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    height:100%
 }
 
 main {
-    flex:2;
-    padding: 1vh 1vw
+    flex:1;
+    padding: 1vh 1vw;
 }

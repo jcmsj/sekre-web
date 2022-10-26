@@ -23,6 +23,7 @@ export default function Root() {
             value={index}
             onChange={handleChange}
             variant="fullWidth"
+            style={{padding:"1vh 1vw"}}
         >
             <Tab
                 label="Settings"
