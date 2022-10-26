@@ -41,8 +41,8 @@
 
 #### Buttons:
 - [ ] Use main password.
-- [ ] Generate `secret`.
-- [ ] Clear inputs.
+- [ ] Generate `key`.
+- [x] Clear inputs.
 - [ ] Visibility toggles for `key` and `secret`.
 - [x] Submit button
     - [x] UI.
@@ -51,8 +51,8 @@
 #### Submission
 - [x] Validation.
   - [x] Disable button unless valid
-- [ ] Encrypt `secret` using [Crypto JS' AES-256](https://cryptojs.gitbook.io/docs/).
-- [ ] Insert `secret` to the local DB.
+- [x] Encrypt `secret` using [Crypto JS' AES-256](https://cryptojs.gitbook.io/docs/).
+- [x] Insert `secret` to the local DB.
 
 ### Secret Editor
 #### Content
