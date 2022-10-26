@@ -1,18 +1,20 @@
-import { Check as CheckIcon, Clear as ClearIcon, Key as KeyIcon, RestartAlt } from "@mui/icons-material"
-import { Button, ButtonGroup, Fab, TextField } from "@mui/material"
+import { CheckOutlined, Clear as ClearIcon, Key as KeyIcon, RestartAlt } from "@mui/icons-material"
+import { Button, ButtonGroup, TextField, AppBar, Toolbar, Typography } from "@mui/material"
 import { useEffect } from "react"
 import { useState } from "react"
+import AppTitle from "../components/AppTitle"
 import { db } from "../db"
 import { encrypt } from "../lib/cipher"
 import useClear from "../lib/useClear"
-
 /**
  * @type {React.CSSProperties}
  */
 const style = {
     display: "flex",
     flexDirection: "column",
-    rowGap: "2vh"
+    rowGap: "2vh",
+    marginTop: "2vh",
+    padding:"1vh 2vw"
 }
 
 export default function CreationPage(props) {
@@ -33,51 +35,56 @@ export default function CreationPage(props) {
         clear()
     }
 
-    return <form style={style}>
-        <h1>Create a secret</h1>
-        <InputOutline
-            label="Name"
-            onInput={e => setName(e.target.value)}
-            value={name}
-        ></InputOutline>
-        <InputOutline
-            label="Secret"
-            type="password"
-            name="password-new"
-            value={secret}
-            onInput={e => setSecret(e.target.value)}
-        ></InputOutline>
-        <InputOutline
-            label="Key"
-            type="password"
-            name="password-new"
-            value={key}
-            onInput={e => setKey(e.target.value)}
-        ></InputOutline>
-        <ButtonGroup
-            style={{ alignSelf: "center" }}
-        >
-            <Button onClick={clear}>
-                <RestartAlt />
-                Clear
-            </Button>
-            <Button>
-                <KeyIcon />
-                Use main key
-            </Button>
+    return <>
+        <AppBar position="sticky" color="background">
+            <Toolbar>
+                <AppTitle>
+                    New Secret
+                </AppTitle>
+                <Button
+                    onClick={onCreate}
+                    disabled={isInvalid}
+                    edge="end"
+                >
+                    <CheckOutlined />
+                </Button>
+            </Toolbar>
+        </AppBar>
+        <form style={style}>
+            <InputOutline
+                label="Name"
+                onInput={e => setName(e.target.value)}
+                value={name}
+            ></InputOutline>
+            <InputOutline
+                label="Secret"
+                type="password"
+                name="password-new"
+                value={secret}
+                onInput={e => setSecret(e.target.value)}
+            ></InputOutline>
+            <InputOutline
+                label="Key"
+                type="password"
+                name="password-new"
+                value={key}
+                onInput={e => setKey(e.target.value)}
+            ></InputOutline>
+            <ButtonGroup
+                style={{ alignSelf: "center" }}
+            >
+                <Button onClick={clear}>
+                    <RestartAlt />
+                    Clear
+                </Button>
+                <Button>
+                    <KeyIcon />
+                    Use main key
+                </Button>
 
-        </ButtonGroup>
-        <Fab
-            variant="extended"
-            onClick={onCreate}
-            disabled={isInvalid}
-            style={{ alignSelf: "flex-end" }}
-            color="primary"
-        >
-            {isInvalid ? <ClearIcon /> : <CheckIcon />}
-            &nbsp;Create
-        </Fab>
-    </form>
+            </ButtonGroup>
+        </form>
+    </>
 }
 
 
