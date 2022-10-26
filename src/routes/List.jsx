@@ -1,7 +1,7 @@
 import { ContentCopy } from "@mui/icons-material";
 import { List, ListItem, ListItemButton, ListItemText, ListItemIcon } from "@mui/material";
 import { useLiveQuery } from "dexie-react-hooks"
-import { db } from "./db"
+import { db } from "../db"
 
 /**
  * 

@@ -1,26 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import CreationPage from './Create'
+import CreationPage from './routes/Create'
+import ListPage from './routes/List'
+import Root from './Root'
+import SettingsPage from './routes/Settings'
 import "./layout.css"
-import ListPage from './List'
-import Root from './routes/Root'
-import SettingsPage from './Settings'
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    children:[
+    children: [
       {
-        path:"list",
+        path: "list",
         element: <ListPage />
       },
       {
-        path:"settings",
+        path: "settings",
         element: <SettingsPage />
       },
       {
-        path:"new",
+        path: "new",
         element: <CreationPage />
       }
     ]
