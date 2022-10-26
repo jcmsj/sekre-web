@@ -11,7 +11,7 @@ const style = {
     flexDirection: "column"
 }
 
-export default function Create({clearSignal}) {
+export default function CreationPage({clearSignal}) {
     const [name, setName] = useState("hello")
     const [secret, setSecret] = useState("world")
     const [key, setKey] = useState("key")

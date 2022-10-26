@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useState } from "react";
 import List from "./List";
-import Create from "./Create";
+import CreationPage from "./Create";
 
 function TabPanel({ children, value, index, ...props }) {
   return <div
@@ -38,7 +38,7 @@ export default function App() {
         <List />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Create />
+        <CreationPage />
       </TabPanel>
     </main>
     <Tabs
