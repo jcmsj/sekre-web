@@ -5,20 +5,19 @@ import {
 } from 'react-router-dom';
 import { useState } from "react";
 import { List as ListIcon, Add as AddIcon, Settings as SettingsIcon } from '@mui/icons-material';
-import { db } from "./db";
-import { useLiveQuery } from "dexie-react-hooks";
+import { db, useMainKey } from "./db";
 import { LoginForm } from "./routes/LoginPage";
+import { useEffect } from "react";
+import RegistrationForm from "./routes/Register";
 export default function Root() {
     const [isRegistered, setRegistrationStatus] = useState(true)
     const [isAuth, setAuth] = useState(false)
-    const mainKey = useLiveQuery(() => {
-        const result = db.mainKey.get({ id: 0 })
+    const mainKey = useMainKey();
+    useEffect(() => {
         setRegistrationStatus(
-            result != undefined
+            mainKey != undefined
         )
-        return result;
-    })
-
+    }, [mainKey])
     return isRegistered ?
         isAuth ? <App />
             : <LoginForm setAuth={setAuth}/>

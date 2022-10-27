@@ -26,7 +26,6 @@ export default function RegistrationForm({ mainKey }) {
         intent="Getting Started"
         siblingsBefore={
             <>
-                {typeof mainKey}
                 To use the app please register a main password.
                 <b style={{ color: "red" }}>Warning:<br /> it can only be set once.</b>
             </>
