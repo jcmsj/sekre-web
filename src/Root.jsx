@@ -4,9 +4,7 @@ import {
     Link,
 } from 'react-router-dom';
 import { useState } from "react";
-import ListIcon from '@mui/icons-material/List';
-import AddIcon from '@mui/icons-material/Add';
-import SettingsIcon from '@mui/icons-material/Settings';
+import {List as ListIcon, Add as AddIcon, Settings as SettingsIcon} from '@mui/icons-material';
 
 const initialPage = "/list"
 export default function Root() {

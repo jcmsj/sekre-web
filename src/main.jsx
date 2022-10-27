@@ -5,6 +5,7 @@ import CreationPage from './routes/Create'
 import ListPage from './routes/List'
 import Root from './Root'
 import SettingsPage from './routes/Settings'
+import EditPage from './routes/EditPage'
 import "./layout.css"
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "new",
         element: <CreationPage />
+      },
+      {
+        path:"edit/:id",
+        element:<EditPage />,
       }
     ]
   },
