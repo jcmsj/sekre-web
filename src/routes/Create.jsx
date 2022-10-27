@@ -32,7 +32,13 @@ export default function CreationPage(props) {
     }, [name, secret, key])
 
     const onCreate = async (e) => {
-        await db.secrets.add({ name, secret: encrypt(secret)(key) })
+        const id = await db.secrets.add({ name, secret: encrypt(secret)(key) })
+        if (key == mainKey.secret) {
+            await db.chains.add({
+                keyID: mainKey.id,
+                targetID: id
+            })
+        }
         clear()
     }
     const setMainKeyAsKey = () => setKey(mainKey.secret);
@@ -78,7 +84,7 @@ export default function CreationPage(props) {
                     Clear
                 </Button>
                 <Button
-                onClick={setMainKeyAsKey}
+                    onClick={setMainKeyAsKey}
                 >
                     <KeyIcon />
                     Use main key

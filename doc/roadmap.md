@@ -5,7 +5,7 @@
 - [x] [Dexie](https://dexie.org/docs/Tutorial/React).
 ### Persist data (Own table)
 - x] Store `main key`.
-- [-] Table containing IDs of secrets that use the `main key`.
+- [x] Table containing IDs of secrets that use the `main key`.
 - [X] Secrets table.
   
 ## Frontend
