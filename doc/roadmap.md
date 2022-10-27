@@ -21,13 +21,13 @@
 ### Secret List (Major)
 #### Top bar
 - [x] Show list of `secret`s.
-- [ ] Tapping an item navigates to the `secret` editor.
+- [x] Tapping an item navigates to the `secret` editor.
 - [x] Each item has quick action buttons:
   - [ ] Show button 
     - [ ] Reveals the `secret`.
     - [ ] UI
   - [ ] Copy button 
-    - [ ] Copies the `secret` to the clipboard using [@react-native-clipboard/clipboard](https://www.npmjs.com/package/@react-native-clipboard/clipboard).
+    - [ ] Copies the `secret` to the clipboard using Clipboard API).
     - [x] UI
   -  _Implimentation note_: Authentication is still required after tapping these unless the secret uses the `main key`.
 - [ ] Filter secrets
