@@ -1,4 +1,4 @@
-import { CheckOutlined, Clear as ClearIcon, Key as KeyIcon, RestartAlt } from "@mui/icons-material"
+import { CheckOutlined, Key as KeyIcon, RestartAlt } from "@mui/icons-material"
 import { Button, ButtonGroup, TextField, AppBar, Toolbar, Typography } from "@mui/material"
 import { useEffect } from "react"
 import { useState } from "react"
@@ -14,7 +14,7 @@ const style = {
     flexDirection: "column",
     rowGap: "2vh",
     marginTop: "2vh",
-    padding:"1vh 2vw"
+    padding: "1vh 2vw"
 }
 
 export default function CreationPage(props) {
@@ -36,7 +36,7 @@ export default function CreationPage(props) {
     }
 
     return <>
-        <AppBar position="sticky" color="background">
+        <AppBar position="sticky">
             <Toolbar>
                 <AppTitle>
                     New Secret
@@ -44,7 +44,9 @@ export default function CreationPage(props) {
                 <Button
                     onClick={onCreate}
                     disabled={isInvalid}
-                    edge="end"
+                    sx={{
+                        color: "inherit",
+                    }}
                 >
                     <CheckOutlined />
                 </Button>
