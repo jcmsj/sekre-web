@@ -4,8 +4,8 @@
 ## Client-side storage
 - [x] [Dexie](https://dexie.org/docs/Tutorial/React).
 ### Persist data (Own table)
-- [] Store `main key`.
-- [] Table containing IDs of secrets that use the `main key`.
+- x] Store `main key`.
+- [-] Table containing IDs of secrets that use the `main key`.
 - [X] Secrets table.
   
 ## Frontend
@@ -40,7 +40,7 @@
 - [x] The `key` for the `secret`.
 
 #### Buttons:
-- [ ] Use main password.
+- [x] Use main password.
 - [ ] Generate `key`.
 - [x] Clear inputs.
 - [ ] Visibility toggles for `key` and `secret`.
@@ -68,18 +68,18 @@ _buttons displayed from right to left._
 - [ ] Copy
   - [ ] UI
   - [ ] Logic
-- [ ] Go back
+- [x] Go back
 
 ### Auth Page
-- [ ] Title shows intent.
-- [ ] Accepts children props.
-  - [ ] Before `key field`.
-  - [ ] After `key field`. 
+- [x] Title shows intent.
+- [x] Accepts children props.
+  - [x] Before `key field`.
+  - [x] After `key field`. 
 - [ ] Show `key field`.
 - [ ] Button to toggle `key` visibility.
-- [ ] Major buttons
-  - [ ] Go back (unused)
-  - [ ] Submit
+- [x] Major buttons
+  - [x] Go back
+  - [x] Submit
 
 ## Settings (Major)
 - [ ] About the app - try SUQUI.

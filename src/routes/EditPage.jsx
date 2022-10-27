@@ -1,8 +1,7 @@
-import { ArrowBack } from "@mui/icons-material";
-import { AppBar, Toolbar } from "@mui/material";
+import { useLiveQuery } from "dexie-react-hooks";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import AppTitle from "../components/AppTitle";
+import { useNavigate, useParams } from "react-router-dom";
+import TopBar from "../components/TopBar";
 import { db } from "../db";
 
 /**
@@ -11,21 +10,27 @@ import { db } from "../db";
 export default function EditPage() {
     const { id } = useParams();
     const [sekre, setSekre] = useState();
+    const navigate = useNavigate()
     useEffect(() => {
-        db.secrets.get(parseInt(id)).then(setSekre)
+        async function check() {
+            const s = await db.secrets.get(parseInt(id))
+            setSekre(s)
+            if (s == undefined) {
+                navigate("/")
+            }
+        }
+        check()
     }, [id])
-    return <>
-        <AppBar>
-            <Toolbar 
-            sx={{columnGap:"1vw"}}
-            >
-                <ArrowBack>
 
-                </ArrowBack>
-                <AppTitle>
-                    Edit: {sekre?.name}
-                </AppTitle>
-            </Toolbar>
-        </AppBar>
+    return <>
+        <TopBar
+            cancellable
+            title={`Edit : ${sekre?.name ?? ""}`}
+            toolBarProps={{
+                sx: { columnGap: "1vw" }
+            }}
+        >
+
+        </TopBar>
     </>;
 }

@@ -1,11 +1,12 @@
 import { CheckOutlined, Key as KeyIcon, RestartAlt } from "@mui/icons-material"
-import { Button, ButtonGroup, TextField, AppBar, Toolbar, Typography } from "@mui/material"
+import { Button, ButtonGroup } from "@mui/material"
 import { useEffect } from "react"
 import { useState } from "react"
-import AppTitle from "../components/AppTitle"
-import { db } from "../db"
+import { db, useMainKey } from "../db"
 import { encrypt } from "../lib/cipher"
 import useClear from "../lib/useClear"
+import { InputOutline } from "../components/InputOutline"
+import TopBar from "../components/TopBar"
 /**
  * @type {React.CSSProperties}
  */
@@ -23,7 +24,7 @@ export default function CreationPage(props) {
     const [key, setKey] = useState("")
     const clear = useClear(setName, setSecret, setKey)
     const [isInvalid, setValidty] = useState(true)
-
+    const mainKey = useMainKey()
     useEffect(() => {
         setValidty(
             [secret, key, name].some(input => input.length <= 0)
@@ -34,24 +35,21 @@ export default function CreationPage(props) {
         await db.secrets.add({ name, secret: encrypt(secret)(key) })
         clear()
     }
-
+    const setMainKeyAsKey = () => setKey(mainKey.secret);
     return <>
-        <AppBar position="sticky">
-            <Toolbar>
-                <AppTitle>
-                    New Secret
-                </AppTitle>
-                <Button
-                    onClick={onCreate}
-                    disabled={isInvalid}
-                    sx={{
-                        color: "inherit",
-                    }}
-                >
-                    <CheckOutlined />
-                </Button>
-            </Toolbar>
-        </AppBar>
+        <TopBar
+            title="New Secret"
+        >
+            <Button
+                onClick={onCreate}
+                disabled={isInvalid}
+                sx={{
+                    color: "inherit",
+                }}
+            >
+                <CheckOutlined />
+            </Button>
+        </TopBar>
         <form style={style}>
             <InputOutline
                 label="Name"
@@ -79,7 +77,9 @@ export default function CreationPage(props) {
                     <RestartAlt />
                     Clear
                 </Button>
-                <Button>
+                <Button
+                onClick={setMainKeyAsKey}
+                >
                     <KeyIcon />
                     Use main key
                 </Button>
@@ -87,13 +87,4 @@ export default function CreationPage(props) {
             </ButtonGroup>
         </form>
     </>
-}
-
-
-function InputOutline(props) {
-    return <TextField
-        required
-        variant="outlined"
-        {...props}
-    />
 }

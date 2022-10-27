@@ -1,15 +1,11 @@
-import AppTitle from "../components/AppTitle";
-import { AppBar, Toolbar } from "@mui/material";
+import TopBar from "../components/TopBar";
 
 export default function SettingsPage() {
     return <>
-        <AppBar position="sticky">
-            <Toolbar>
-                <AppTitle>
-                    Settings
-                </AppTitle>
-            </Toolbar>
-        </AppBar>
+        <TopBar
+            title="Settings"
+        >
+        </TopBar>
         <div>
             TODO
         </div>
