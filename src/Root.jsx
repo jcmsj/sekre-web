@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import {List as ListIcon, Add as AddIcon, Settings as SettingsIcon} from '@mui/icons-material';
 
-const initialPage = "/list"
+const initialPage = "/"
 export default function Root() {
     const [index, setIndex] = useState(initialPage)
 
@@ -32,8 +32,8 @@ export default function Root() {
             />
             <Tab
                 label="List"
-                value="/list"
-                to="/list" component={Link}
+                value="/"
+                to="/" component={Link}
                 icon={<ListIcon />}
 
             />
