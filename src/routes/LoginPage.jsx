@@ -37,26 +37,29 @@ export function LoginForm({ setAuth }) {
 }
 
 /**
- * 
+ *
  * @param {{
- * intent:string,
- * onSubmit:(key:string)=>void,
- * siblingsBefore: React.ReactNode,
- * siblingsAfter: React.ReactNode,
- * children: React.ReactNode,
- * inputProps: import("@mui/material").TextFieldProps
- * }} param0 
- * @implNote {
- *   siblingsBefore/after pertain to the input field
+            * intent: string,
+            * onSubmit: (key: string) => void,
+            * siblingsBefore: React.ReactNode,
+            * siblingsAfter: React.ReactNode,
+            * children: React.ReactNode,
+            * inputProps: import("@mui/material").TextFieldProps
+ * }} param0
+        * @implNote {
+ * siblingsBefore / after pertain to the input field
  * }
+        * @returns
  * @returns 
- */
+        * @returns
+        */
 export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, cancellable, inputProps, children, ...props }) {
     const [input, setInput] = useState("")
-    return <>
+    return <main>
         <TopBar
             title={intent}
             cancellable={cancellable}
+            {...props}
         >
         </TopBar>
         <form
@@ -90,5 +93,5 @@ export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, canc
             >Submit</Button>
             {children}
         </form>
-    </>
+    </main>
 }

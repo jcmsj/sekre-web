@@ -43,17 +43,16 @@ export default function ListPage() {
             </Toolbar>
         </AppBar>
         <List
-            sx={{
-                display:"flex",
-                flexDirection:"column",
-                rowGap: "1vh"
-            }}
+            sx={theme => ({
+                overflowY:"auto",
+                backgroundColor:theme.background,
+                height: "100%"
+            })}
         >
             {secrets?.map(sekre =>
                 <Item
                     key={sekre.id}
                     sekre={sekre}
-                    onClick={() => <Link to="/edit" />}
                 />)
             }
         </List>

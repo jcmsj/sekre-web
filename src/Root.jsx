@@ -20,7 +20,7 @@ export default function Root() {
     }, [mainKey])
     return isRegistered ?
         isAuth ? <App />
-            : <LoginForm setAuth={setAuth}/>
+            : <LoginForm setAuth={setAuth} />
         : <RegistrationForm mainKey={mainKey} />
 }
 
@@ -39,7 +39,13 @@ function App() {
             value={index}
             onChange={handleChange}
             variant="fullWidth"
-            style={{ padding: "1vh 1vw" }}
+            sx={theme => ({
+                padding: "1vh 1vw",
+                position: "sticky",
+                bottom: 0,
+                height: "max-content",
+                backgroundColor: theme.palette.background.default
+            })}
         >
             <Tab
                 label="Settings"
