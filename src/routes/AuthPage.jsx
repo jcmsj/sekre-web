@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { db } from "../db";
 import { decrypt } from "../lib/cipher";
@@ -10,15 +10,20 @@ export default function AuthPage() {
      * @type {{sekre:import("../db").Sekre}}
      */
     const { sekre } = location.state;
+    const [maybeKey, setMaybeKey] = useState();
     useEffect(() => {
         async function requiry() {
             const maybeChain = await db.chains.get({ targetID: sekre.id });
-            const maybeKey =maybeChain ? (await db.mainKey.get({ id: maybeChain.keyID })): undefined;
-            verify(maybeKey?.secret)
+            if (maybeChain)
+                setMaybeKey(
+                    await db.mainKey.get({ id: maybeChain.keyID })
+                )
         }
         if (sekre != undefined) requiry();
     }, [sekre])
-
+    useEffect(() => {
+        verify(maybeKey?.secret)
+    }, [maybeKey])
     useEffect(() => {
         if (sekre == undefined) {
             navigate("/")
