@@ -33,24 +33,22 @@ export function LoginForm({ setAuth }) {
         }
     >
         Attempts left: {attemptsLeft}
-    </AuthForm>;
+    </AuthForm>
 }
 
 /**
  *
  * @param {{
-            * intent: string,
-            * onSubmit: (key: string) => void,
-            * siblingsBefore: React.ReactNode,
-            * siblingsAfter: React.ReactNode,
-            * children: React.ReactNode,
-            * inputProps: import("@mui/material").TextFieldProps
+ * intent: string,
+ * onSubmit: (key: string) => void,
+ * siblingsBefore: React.ReactNode,
+ * siblingsAfter: React.ReactNode,
+ * children: React.ReactNode,
+ * inputProps: import("@mui/material").TextFieldProps
  * }} param0
         * @implNote {
  * siblingsBefore / after pertain to the input field
  * }
-        * @returns
- * @returns 
         * @returns
         */
 export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, cancellable, inputProps, children, ...props }) {

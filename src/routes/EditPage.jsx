@@ -1,54 +1,97 @@
-import { ContentCopy, RemoveRedEye } from "@mui/icons-material";
-import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { useLiveQuery } from "dexie-react-hooks";
-import { useNavigate, useParams } from "react-router-dom";
+import { ContentCopy, VisibilityOff, Visibility } from "@mui/icons-material";
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useLocation, useNavigate, } from "react-router-dom";
 import TopBar from "../components/TopBar";
-import { db } from "../db";
+import { tryDecrypt } from "../db";
 
 /**
  * @param {{sekre:import("./db").Sekre,key:string?}} param0 
  */
 export default function EditPage() {
+    const location = useLocation();
     const navigate = useNavigate()
-    const { id:rawID } = useParams();
-    const id = parseInt(rawID)
-    const defaultKeyID = useLiveQuery(() => db.chains.where({targetID:id}).first());
-    const key = useLiveQuery(() => defaultKeyID ? db.mainKey.get({ id: defaultKeyID.keyID }):undefined)
-    const sekre = useLiveQuery(() => {
-        const s = db.secrets.get(id)
-        if (s == undefined) {
-            navigate("/");
+    /**
+     * @type {{
+     *  sekre:import("../db").Sekre,
+     * key:string
+     * }}
+     */
+    const { sekre, key } = location.state;
+    const [preview, setPreview] = useState("")
+    useEffect(() => {
+        if (key == undefined) {
+            navigate("/auth/" + sekre.id, {state: {
+                sekre
+            }})
         }
-        return s;
-    });
+    }, [key])
+    
+    function copyIt() {
+        navigator.clipboard.writeText(
+            tryDecrypt({ sekre, key })
+        )
+    }
+    function toggleVisibility() {
+        setPreview(preview == "" ?
+            tryDecrypt({ sekre, key }) : ""
+        )
+    }
 
     return <>
         <TopBar
-            cancellable
             title={`Edit : ${sekre?.name ?? ""}`}
             toolBarProps={{
                 sx: { columnGap: "1vw" }
             }}
+            onBack={() => navigate("/")}
         >
 
         </TopBar>
         <List>
-            <ListItemButton>
-                <ListItemText>
-                    Reveal
-                </ListItemText>
-                <ListItemIcon>
-                    <RemoveRedEye />
-                </ListItemIcon>
-            </ListItemButton>
-            <ListItemButton>
-                <ListItemText>
-                    Copy
-                </ListItemText>
-                <ListItemIcon>
-                    <ContentCopy />
-                </ListItemIcon>
-            </ListItemButton>
+            <Preview
+                onClick={toggleVisibility}
+                preview={preview}
+            />
+            <Copier
+                onClick={copyIt}
+            />
         </List>
-    </>;
+    </>
+}
+
+export function Preview({ preview, ...props }) {
+    return <>
+        <ListItemButton
+            {...props}
+        >
+            <ListItemIcon>
+                {preview == "" ?
+                    <Visibility /> : <VisibilityOff />
+                }
+            </ListItemIcon>
+            <ListItemText>
+                Tap to {preview == "" ? "reveal" : "hide"}
+            </ListItemText>
+        </ListItemButton>
+        <ListItem>
+            <ListItemText>
+                {preview}
+            </ListItemText>
+        </ListItem>
+    </>
+}
+
+export function Copier(props) {
+    return <ListItemButton
+        {...props}
+    >
+        <ListItemIcon>
+            <ContentCopy />
+        </ListItemIcon>
+        <ListItemText>
+            Copy
+        </ListItemText>
+    </ListItemButton>
 }

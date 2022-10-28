@@ -7,27 +7,22 @@ import { db } from "../db"
 import { SearchBar } from "../components/SearchBar";
 
 /**
- * 
  * @param {{sekre:import("./db").Sekre}} param0 
  */
-export function Item({ sekre, to, ...props }) {
-    return <ListItem
-        component={Link} to={`/edit/${sekre.id}`}
+export function Item({ sekre, ...props }) {
+    return <ListItemButton
+        component={Link}
+        to={`/auth/${sekre.id}`}
+        state={{ sekre }}
         sx={{
             boxShadow: 1,
         }}
+        {...props}
     >
-        <ListItemButton
-        >
-            <ListItemText
-            >{sekre.name}</ListItemText>
-            <ListItemIcon onClick={e => {
-                e.preventDefault()
-            }}>
-                <ContentCopy />
-            </ListItemIcon>
-        </ListItemButton>
-    </ListItem>
+        <ListItemText
+        >{sekre.name}
+        </ListItemText>
+    </ListItemButton>
 }
 
 export default function ListPage() {

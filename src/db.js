@@ -1,5 +1,6 @@
 import Dexie from 'dexie';
 import { useLiveQuery } from "dexie-react-hooks";
+import { decrypt } from "./lib/cipher";
 
 /**
  *  @typedef {{
@@ -44,4 +45,30 @@ export const db = new SekreDexie();
  */
 export function useMainKey() {
     return useLiveQuery(() => db.mainKey.get({ id: 0 }));
+}
+
+/**
+ * @param { * @param {{sekre.Sekre, key:string}} param0
+ * @returns 
+ */
+export function tryDecrypt({sekre, key}) {
+    try {
+        return decrypt(sekre.secret)(key);
+    } catch (error) {
+        console.log(error);
+        //Means the key is wrong
+    }
+
+    return "";
+}
+
+/**
+ * 
+ * @param {() => string} provider 
+ * @returns 
+ */
+export function securecopy(provider) {
+    return navigator.clipboard.writeText(
+        provider()
+    )
 }

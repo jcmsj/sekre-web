@@ -7,6 +7,7 @@ import Root from './Root'
 import SettingsPage from './routes/Settings'
 import EditPage from './routes/EditPage'
 import "./layout.css"
+import AuthPage from './routes/AuthPage'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path:"edit/:id",
         element:<EditPage />,
+      },
+      {
+        path:"auth/:id",
+        element: <AuthPage />
       }
     ]
   },
