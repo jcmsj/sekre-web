@@ -31,7 +31,7 @@ export class SekreDexie extends Dexie {
         super('sekre');
         this.version(1).stores({
             secrets: '++id, name, secret',
-            chains: '++id, secret',
+            chains: 'targetID, keyID',
             mainKey: 'id, secret'
         });
     }
