@@ -13,7 +13,7 @@ export function LoginForm({ setAuth }) {
     async function authenticate(key) {
         const result = obscure(key) == first.secret
         setAuth(result)
-        result ? setAuth(result) :decrease()
+        result ? setAuth(result) : decrease()
     }
 
     useEffect(() => {
@@ -27,8 +27,8 @@ export function LoginForm({ setAuth }) {
         intent="Login"
         onSubmit={authenticate}
         siblingsAfter={
-            <p style={{color:"red"}}>
-            {attemptsLeft != MAX_ATTEMPTS ? "Incorrect key, please try again!":""}
+            <p style={{ color: "red" }}>
+                {attemptsLeft != MAX_ATTEMPTS ? "Incorrect key, please try again!" : ""}
             </p>
         }
     >
@@ -59,13 +59,17 @@ export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, canc
             cancellable={cancellable}
         >
         </TopBar>
-        <div
+        <form
             style={{
                 marginTop: "2vh",
                 padding: "1vh 1vw",
                 display: "flex",
                 flexDirection: "column",
                 rowGap: "4vh"
+            }}
+            onSubmit={e => {
+                e.preventDefault()
+                onSubmit(input, e)
             }}
         >
             {siblingsBefore}
@@ -82,9 +86,9 @@ export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, canc
                     width: "max-content",
                     alignSelf: "center"
                 }}
-                onClick={e => onSubmit(input, e)}
+                type="submit"
             >Submit</Button>
             {children}
-        </div>
+        </form>
     </>
 }
