@@ -23,14 +23,17 @@ function ArrowButton(props) {
  * } & import("React").PropsWithChildren} param0 
  * @returns 
  */
-export default function TopBar({cancellable, onBack, children, title, toolBarProps, ...props }) {
+export default function TopBar({ cancellable, onBack, children, title, toolBarProps, ...props }) {
     const navigate = useNavigate();
-    const goBack = () => onBack ? onBack() :navigate(-1);
+    const goBack = () => onBack ? onBack() : navigate(-1);
     return <AppBar
         position="sticky"
         {...props}
     >
         <Toolbar
+            style={{
+                backgroundColor: "#000"
+            }}
             {...toolBarProps}
         >
             {(cancellable ?? onBack) ?

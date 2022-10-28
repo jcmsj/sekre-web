@@ -83,9 +83,10 @@ export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, canc
             {siblingsAfter}
             <Button
                 variant="contained"
+                color="success"
                 sx={{
                     width: "max-content",
-                    alignSelf: "center"
+                    alignSelf: "center",
                 }}
                 type="submit"
             >Submit</Button>

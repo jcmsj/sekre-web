@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import { useState } from "react";
 import { List as ListIcon, Add as AddIcon, Settings as SettingsIcon } from '@mui/icons-material';
-import { db, useMainKey } from "./db";
+import { useMainKey } from "./db";
 import { LoginForm } from "./routes/LoginPage";
 import { useEffect } from "react";
 import RegistrationForm from "./routes/Register";
@@ -39,13 +39,27 @@ function App() {
             value={index}
             onChange={handleChange}
             variant="fullWidth"
-            sx={theme => ({
-                padding: "1vh 1vw",
+
+            sx={{
+                height: "max-content",
                 position: "sticky",
                 bottom: 0,
-                height: "max-content",
-                backgroundColor: theme.palette.background.default
-            })}
+                pb: 1,
+                pt: 1,
+                boxShadow:
+                    "0px 7px 18px -3px rgba(0,0,0,1) inset, 0px 2px 4px 0px rgba(50,50,50,1) inset",
+                backgroundColor: "#141414",
+                '& .MuiTabs-indicator': {
+                    backgroundColor: '#fff',
+                },
+                '& .MuiTab-root.Mui-selected': {
+                    color: '#8BC34A',
+                },
+                '& .MuiTab-root': {
+                    color: '#6B6B6B',
+                },
+            }}
+
         >
             <Tab
                 label="Settings"

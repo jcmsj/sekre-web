@@ -22,12 +22,14 @@ export default function EditPage() {
     const [preview, setPreview] = useState("")
     useEffect(() => {
         if (key == undefined) {
-            navigate("/auth/" + sekre.id, {state: {
-                sekre
-            }})
+            navigate("/auth/" + sekre.id, {
+                state: {
+                    sekre
+                }
+            })
         }
     }, [key])
-    
+
     function copyIt() {
         navigator.clipboard.writeText(
             tryDecrypt({ sekre, key })
@@ -64,19 +66,30 @@ export default function EditPage() {
 export function Preview({ preview, ...props }) {
     return <>
         <ListItemButton
+            sx={theme => ({
+                color: theme.palette.primary.contrastText
+            })}
             {...props}
         >
-            <ListItemIcon>
+            <ListItemIcon
+                sx={{ color: "inherit" }}
+            >
                 {preview == "" ?
-                    <Visibility /> : <VisibilityOff />
+                    <Visibility sx={{ color: "inherit" }} /> : <VisibilityOff sx={{ color: "inherit" }} />
                 }
             </ListItemIcon>
             <ListItemText>
                 Tap to {preview == "" ? "reveal" : "hide"}
             </ListItemText>
         </ListItemButton>
-        <ListItem>
-            <ListItemText>
+        <ListItem
+            sx={theme => ({
+                color: theme.palette.primary.contrastText
+            })}
+        >
+            <ListItemText
+                sx={{ color: "inherit" }}
+            >
                 {preview}
             </ListItemText>
         </ListItem>
@@ -85,10 +98,17 @@ export function Preview({ preview, ...props }) {
 
 export function Copier(props) {
     return <ListItemButton
+        sx={theme => ({
+            color: theme.palette.primary.contrastText
+        })}
         {...props}
     >
-        <ListItemIcon>
-            <ContentCopy />
+        <ListItemIcon
+            sx={{ color: "inherit" }}
+        >
+            <ContentCopy
+                sx={{ color: "inherit" }}
+            />
         </ListItemIcon>
         <ListItemText>
             Copy

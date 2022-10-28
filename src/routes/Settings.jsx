@@ -7,7 +7,7 @@ export default function SettingsPage() {
         >
         </TopBar>
         <div>
-            TODO
+            <h2 style={{color: "white", fontFamily: "Segoe UI", fontWeight: "lighter", textAlign: "center"}}>TODO</h2>
         </div>
     </>
 }

@@ -3,6 +3,7 @@ body {
     padding: 0;
     height: 100vh;  /* Fallback */
     height: 100dvh;  /* https://caniuse.com/?search=dvh */
+    background-color: #101010;
 }
 
 #root {
@@ -10,4 +11,8 @@ body {
     grid-template-rows: 90vh auto;
     height:100%;
     overflow-y: hidden;
+}
+
+main {
+    overflow-y: auto;
 }

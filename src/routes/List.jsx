@@ -1,5 +1,4 @@
-import { ContentCopy } from "@mui/icons-material";
-import { List, ListItem, ListItemButton, ListItemText, ListItemIcon, AppBar, Toolbar } from "@mui/material";
+import { List, ListItemButton, ListItemText, AppBar, Toolbar } from "@mui/material";
 import { useLiveQuery } from "dexie-react-hooks"
 import { Link } from "react-router-dom";
 import AppTitle from "../components/AppTitle";
@@ -16,6 +15,11 @@ export function Item({ sekre, ...props }) {
         state={{ sekre }}
         sx={{
             boxShadow: 1,
+            color: "white",
+            backgroundColor: "#191919",
+            fontStyle: "italic",
+            fontFamily: "Segoe UI", //doesn't work
+            fontWeight: "lighter"   //doesn't work
         }}
         {...props}
     >
@@ -29,20 +33,23 @@ export default function ListPage() {
     const secrets = useLiveQuery(() => db.secrets.toArray())
     return <>
         <AppBar position="sticky">
-            <Toolbar sx={{ flexDirection: "column", alignItems: "start", rowGap: "1vh" }}>
-                <AppTitle>
-                    Manage secrets
+            <Toolbar sx={{  alignItems: "start", rowGap: "1vh", backgroundColor: "#000", color: 'white', py: 2}}>
+                <AppTitle style={{color: "white", fontFamily: "Segoe UI"}}>
+                    Manage Secrets
                 </AppTitle>
                 {/* TODO: Filter list with input */}
-                <SearchBar />
+                <SearchBar sx={{ color: 'white', backgroundColor: "#121212", p: 1 }} />
             </Toolbar>
         </AppBar>
         <List
-            sx={theme => ({
-                overflowY:"auto",
-                backgroundColor:theme.background,
-                height: "100%"
-            })}
+            sx={{
+                overflowY: "auto",
+                display:"flex",
+                flexDirection:"column",
+                color: "white",
+                rowGap: "1vh",
+            }}
+
         >
             {secrets?.map(sekre =>
                 <Item
@@ -51,6 +58,6 @@ export default function ListPage() {
                 />)
             }
         </List>
-        {secrets?.length ? "" : <h2>No secrets</h2>}
+        {secrets?.length ? "" : <h2 style={{ color: "white", fontFamily: "Segoe UI", fontWeight: "lighter", textAlign: "center" }}>No secrets</h2>}
     </>;
 }
