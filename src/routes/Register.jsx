@@ -5,9 +5,7 @@ import { obscure } from "../lib/cipher";
 import { AuthForm } from "./LoginPage";
 
 /**
- * 
  * @param {{id:number}} param0 
- * @returns 
  */
 export default function RegistrationForm({ mainKey }) {
     const navigate = useNavigate()
@@ -16,10 +14,19 @@ export default function RegistrationForm({ mainKey }) {
             navigate("/")
         }
     }, [mainKey])
+
+    /**
+     * @param {string} key 
+     */
     function register(key) {
+        const trimKey =  key.trim();
+        if (trimKey.length <= 0) {
+            return;
+        }
+
         db.mainKey.add({
             id: 0,
-            secret: obscure(key)
+            secret: obscure(trimKey)
         })
     }
     return <AuthForm
@@ -31,5 +38,10 @@ export default function RegistrationForm({ mainKey }) {
             </>
         }
         onSubmit={register}
-    />
+    >
+        <b>Rules</b>
+        <ul>
+            <li>Trailing and leading whitespace is removed.</li>
+        </ul>
+    </AuthForm>
 }
