@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AppTitle from "../components/AppTitle";
 import { db } from "../db"
 import { SearchBar } from "../components/SearchBar";
+import { useState } from "react";
 
 /**
  * @param {{sekre:import("./db").Sekre}} param0 
@@ -30,22 +31,31 @@ export function Item({ sekre, ...props }) {
 }
 
 export default function ListPage() {
-    const secrets = useLiveQuery(() => db.secrets.toArray())
+    const [query, setQuery] = useState("");
+
+    const secrets = useLiveQuery(() =>
+        query.length ? db.secrets.filter(sekre => sekre.name.includes(query)).toArray()
+        : db.secrets.toArray()
+        , [query])
     return <>
         <AppBar position="sticky">
-            <Toolbar sx={{  alignItems: "start", rowGap: "1vh", backgroundColor: "#000", color: 'white', py: 2}}>
-                <AppTitle style={{color: "white", fontFamily: "Segoe UI"}}>
+            <Toolbar sx={{ alignItems: "start", rowGap: "1vh", backgroundColor: "#000", color: 'white', py: 2 }}>
+                <AppTitle style={{ color: "white", fontFamily: "Segoe UI" }}>
                     Manage Secrets
                 </AppTitle>
                 {/* TODO: Filter list with input */}
-                <SearchBar sx={{ color: 'white', backgroundColor: "#121212", p: 1 }} />
+                <SearchBar
+                    sx={{ color: 'white', backgroundColor: "#121212", p: 1 }}
+                    value={query}
+                    onInput={e => setQuery(e.target.value)}
+                />
             </Toolbar>
         </AppBar>
         <List
             sx={{
                 overflowY: "auto",
-                display:"flex",
-                flexDirection:"column",
+                display: "flex",
+                flexDirection: "column",
                 color: "white",
                 rowGap: "1vh",
             }}

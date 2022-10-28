@@ -30,9 +30,9 @@
     - [ ] Copies the `secret` to the clipboard using Clipboard API).
     - [x] UI
   -  _Implimentation note_: Authentication is still required after tapping these unless the secret uses the `main key`.
-- [ ] Filter secrets
-  - [ ] matches name
-  - [ ] searchbar
+- [x] Filter secrets
+  - [x] matches name
+  - [x] searchbar
 ### Creation Form (Major)
 #### Text fields:
 - [x] Secret's label.
@@ -41,7 +41,7 @@
 
 #### Buttons:
 - [x] Use main password.
-- [ ] Generate `key`.
+- [x] Generate `key` (browser dependent).
 - [x] Clear inputs.
 - [ ] Visibility toggles for `key` and `secret`.
 - [x] Submit button
@@ -62,12 +62,12 @@ _buttons displayed from right to left._
   - [ ] Logic
   - [ ] Confirmation prompt
 - [ ] Edit (optional)
-- [ ] Show
+- [x] Show
   - [x] UI
   - [x] Logic
-- [ ] Copy
-  - [ ] UI
-  - [ ] Logic
+- [x] Copy
+  - [x] UI
+  - [x] Logic
 - [x] Go back
 
 ### Auth Page
@@ -75,7 +75,7 @@ _buttons displayed from right to left._
 - [x] Accepts children props.
   - [x] Before `key field`.
   - [x] After `key field`. 
-- [ ] Show `key field`.
+- [x] Show `key field`.
 - [ ] Button to toggle `key` visibility.
 - [x] Major buttons
   - [x] Go back
