@@ -76,8 +76,8 @@ _buttons displayed from right to left._
 ## Settings (Major)
 - [ ] About the app - try SUQUI.
 - [ ] About the devs - try SUQUI.
-- [ ] Export data.
-- [ ] Import data.
+- [x] Export data.
+- [x] Import data.
 ## Splash screen
 - [x] On first time visit, setup `main key` reuse `Auth`.
 - [ ] LOGO - try SUQUI.
