@@ -1,10 +1,11 @@
-import { ContentCopy, VisibilityOff, Visibility } from "@mui/icons-material";
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { ContentCopy, VisibilityOff, Visibility, Delete } from "@mui/icons-material";
+import { Button, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, } from "react-router-dom";
 import TopBar from "../components/TopBar";
-import { tryDecrypt } from "../db";
+import { db, tryDecrypt } from "../db";
+import { ThemedListItemButton } from "../components/ThemedListItemButton";
 
 /**
  * @param {{sekre:import("./db").Sekre,key:string?}} param0 
@@ -49,7 +50,7 @@ export default function EditPage() {
             }}
             onBack={() => navigate("/")}
         >
-
+            <Deletion sekre={sekre} />
         </TopBar>
         <List>
             <Preview
@@ -63,13 +64,23 @@ export default function EditPage() {
     </>
 }
 
-export function ThemedListItemButton(props) {
-    return <ListItemButton
-        sx={theme => ({
-            color: theme.palette.text.primary
-        })}
-        {...props}
-    />
+/**
+ * @param {{sekre:import("../db").Sekre}} param0 
+ */
+export function Deletion({sekre}) {
+    const navigate = useNavigate()
+    return <Button
+        color="inherit"
+        onClick={() => {
+            if (confirm(`Are you sure you want to delete: ${sekre.name}?`)) {
+                db.chains.delete(sekre.id);
+                db.secrets.delete(sekre.id);
+                navigate("/")
+            }
+        }}
+    >
+        <Delete />
+    </Button>
 }
 export function Preview({ preview, ...props }) {
     return <>

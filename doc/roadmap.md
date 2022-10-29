@@ -22,14 +22,6 @@
 #### Top bar
 - [x] Show list of `secret`s.
 - [x] Tapping an item navigates to the `secret` editor.
-- [x] Each item has quick action buttons:
-  - [ ] Show button 
-    - [ ] Reveals the `secret`.
-    - [ ] UI
-  - [ ] Copy button 
-    - [ ] Copies the `secret` to the clipboard using Clipboard API).
-    - [x] UI
-  -  _Implimentation note_: Authentication is still required after tapping these unless the secret uses the `main key`.
 - [x] Filter secrets
   - [x] matches name
   - [x] searchbar
@@ -57,10 +49,10 @@
 ### Secret Editor
 #### Content
 _buttons displayed from right to left._
-- [ ] Delete
-  - [ ] UI
-  - [ ] Logic
-  - [ ] Confirmation prompt
+- [x] Delete
+  - [x] UI
+  - [x] Logic
+  - [x] Confirmation prompt
 - [ ] Edit (optional)
 - [x] Show
   - [x] UI
