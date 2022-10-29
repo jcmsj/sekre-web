@@ -5,15 +5,21 @@ import { InputOutline } from "../components/InputOutline";
 import TopBar from "../components/TopBar";
 import { useMainKey } from "../db";
 import { obscure } from "../lib/cipher";
+import { useCounter } from "../lib/useCounter";
+
 const MAX_ATTEMPTS = 5;
+
+/**
+ * @param {import("react").SetStateAction<boolean>} param0 
+ */
 export function LoginForm({ setAuth }) {
     const first = useMainKey()
-    const [attemptsLeft, setAttemptsLeft] = useState(MAX_ATTEMPTS);
-    const decrease = () => setAttemptsLeft(attemptsLeft - 1);
+    const { count: attemptsLeft, decrement } = useCounter(MAX_ATTEMPTS);
+
     async function authenticate(key) {
         const result = obscure(key) == first.secret
         setAuth(result)
-        result ? setAuth(result) : decrease()
+        result ? setAuth(result) : decrement()
     }
 
     useEffect(() => {
@@ -23,6 +29,7 @@ export function LoginForm({ setAuth }) {
             window.close()
         }
     }, [attemptsLeft])
+
     return <AuthForm
         intent="Login"
         onSubmit={authenticate}
@@ -46,11 +53,8 @@ export function LoginForm({ setAuth }) {
  * children: React.ReactNode,
  * inputProps: import("@mui/material").TextFieldProps
  * }} param0
-        * @implNote {
- * siblingsBefore / after pertain to the input field
- * }
-        * @returns
-        */
+ * @implNote siblingsBefore / after pertain to the input field
+ */
 export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, cancellable, inputProps, children, ...props }) {
     const [input, setInput] = useState("")
     return <main>
