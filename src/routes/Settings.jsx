@@ -85,7 +85,7 @@ async function parseFile(file) {
      * @type {import("../db").Sekre[]}
      */
     const maybeJSON = JSON.parse(
-        file.text()
+        await file.text()
     )
 
     /**
