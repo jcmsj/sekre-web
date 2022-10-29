@@ -90,6 +90,7 @@ export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, canc
             <InputOutline
                 label="Key"
                 value={input}
+                type="password"
                 onInput={e => setInput(e.target.value)}
                 {...inputProps}
             />
