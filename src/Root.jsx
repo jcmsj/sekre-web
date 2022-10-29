@@ -1,4 +1,4 @@
-import { Tab, Tabs } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import {
     Outlet,
     Link,
@@ -9,6 +9,7 @@ import { useMainKey } from "./db";
 import { LoginForm } from "./routes/LoginPage";
 import { useEffect } from "react";
 import RegistrationForm from "./routes/Register";
+import { Theme } from "./components/Theme";
 
 export default function Root() {
     const [isRegistered, setRegistrationStatus] = useState(true)
@@ -20,35 +21,39 @@ export default function Root() {
             mainKey != undefined
         )
     }, [mainKey])
-    return isRegistered ?
-        isAuth ? <App />
-            : <LoginForm setAuth={setAuth} />
-        : <RegistrationForm mainKey={mainKey} />
+    return <Theme>
+        {isRegistered ?
+            isAuth ? <App />
+                : <LoginForm setAuth={setAuth} />
+            : <RegistrationForm mainKey={mainKey} />
+        }
+    </Theme>
 }
-
 
 /**
  * @type {import("@mui/material").SxProps<import("@mui/material").Theme>}
  */
-const tabsStyle = {
+const tabsStyle = theme => ({
     height: "max-content",
     position: "sticky",
     bottom: 0,
     pb: 1,
     pt: 1,
-    boxShadow:
-        "0px 7px 18px -3px rgba(0,0,0,1) inset, 0px 2px 4px 0px rgba(50,50,50,1) inset",
-    backgroundColor: "#141414",
-    '& .MuiTabs-indicator': {
-        backgroundColor: '#fff',
-    },
-    '& .MuiTab-root.Mui-selected': {
-        color: '#8BC34A',
-    },
-    '& .MuiTab-root': {
-        color: '#6B6B6B',
-    },
-}
+    ...(theme.palette.mode == "dark" ? {
+        boxShadow:
+            "0px 7px 18px -3px rgba(0,0,0,1) inset, 0px 2px 4px 0px rgba(50,50,50,1) inset",
+        backgroundColor: "#141414",
+        '& .MuiTabs-indicator': {
+            backgroundColor: '#fff',
+        },
+        '& .MuiTab-root.Mui-selected': {
+            color: '#8BC34A',
+        },
+        '& .MuiTab-root': {
+            color: '#6B6B6B',
+        },
+    } : {})
+})
 
 const initialPage = "/"
 function App() {
@@ -58,9 +63,11 @@ function App() {
         setIndex(newValue);
     };
     return <>
-        <main>
+        <Box
+            component="main"
+        >
             <Outlet />
-        </main>
+        </Box>
         <Tabs
             value={index}
             onChange={handleChange}
@@ -79,7 +86,7 @@ function App() {
             <Tab
                 label="List"
                 value="/"
-                to="/" 
+                to="/"
                 component={Link}
                 icon={<ListIcon />}
 
@@ -87,7 +94,7 @@ function App() {
             <Tab
                 label="Create"
                 value="/new"
-                to="/new" 
+                to="/new"
                 component={Link}
                 icon={<AddIcon />}
 

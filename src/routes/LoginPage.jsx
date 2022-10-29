@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import { InputOutline } from "../components/InputOutline";
@@ -34,12 +34,16 @@ export function LoginForm({ setAuth }) {
         intent="Login"
         onSubmit={authenticate}
         siblingsAfter={
-            <p style={{ color: "red" }}>
+            <Typography variant="p" style={{ color: "red" }}>
                 {attemptsLeft != MAX_ATTEMPTS ? "Incorrect key, please try again!" : ""}
-            </p>
+            </Typography>
         }
     >
-        Attempts left: {attemptsLeft}
+        <Typography variant="p" sx={theme => ({
+            color: theme.palette.primary.light
+        })}>
+            Attempts left: {attemptsLeft}
+        </Typography>
     </AuthForm>
 }
 
@@ -57,7 +61,12 @@ export function LoginForm({ setAuth }) {
  */
 export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, cancellable, inputProps, children, ...props }) {
     const [input, setInput] = useState("")
-    return <main>
+    return <Box
+        component="main"
+        sx={theme => ({
+            backgroundColor: theme.palette.background.paper
+        })}
+    >
         <TopBar
             title={intent}
             cancellable={cancellable}
@@ -96,5 +105,5 @@ export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, canc
             >Submit</Button>
             {children}
         </form>
-    </main>
+    </Box>
 }

@@ -16,7 +16,7 @@ const style = {
     flexDirection: "column",
     rowGap: "2vh",
     marginTop: "2vh",
-    padding: "2vh 1vw"  
+    padding: "2vh 1vw"
 }
 
 export default function CreationPage(props) {
@@ -47,7 +47,7 @@ export default function CreationPage(props) {
         <TopBar
             title="New Secret"
         >
-        
+
             <Button
                 onClick={onCreate}
                 disabled={isInvalid}
@@ -58,57 +58,56 @@ export default function CreationPage(props) {
                 <CheckOutlined />
             </Button>
         </TopBar>
-        <Paper elevation={24} 
-        
-  
-        sx={{
-            
-            backgroundColor: '#1c1c1c', 
-            borderRadius: 1, mx: 2, 
-            
-            color: 'white', 
-            boxShadow: "0px 0px 18px -3px rgba(0,0,0,1) inset",
-            
-        }}>
-            <form style={style}>
-                <InputOutline
-                    label="Name"
-                    onInput={e => setName(e.target.value)}
-                    value={name}
-                ></InputOutline>
-                <InputOutline
-                    label="Secret"
-                    type="password"
-                    name="password-new"
-                    value={secret}
-                    onInput={e => setSecret(e.target.value)}
-                ></InputOutline>
-                <InputOutline
-                    label="Key"
-                    type="password"
-                    
-                    name="password-new"
-                    value={key}
-                    onInput={e => setKey(e.target.value)}
-                ></InputOutline>
-                <ButtonGroup
-                    color="success"
-                    style={{ alignSelf: "center" }}
-                >
-                    <Button onClick={clear}>
-                        <RestartAlt />
-                        Clear
-                    </Button>
-                    <Button
-                        onClick={setMainKeyAsKey}
-                    >
-                        <KeyIcon />
-                        Use main key
-                    </Button>
+        <Paper
+            elevation={24}
+            component="form"
+            style={style}
+            sx={theme => ({
+                borderRadius: 1, mx: 2,
+                ...(theme.palette.mode == "dark" ? {
+                    backgroundColor: '#1c1c1c',
+                    color: 'white',
+                    boxShadow: "0px 0px 18px -3px rgba(0,0,0,1) inset",
+                    backgroundImage:"unset"
+                } : {})
+            })}>
+            <InputOutline
+                label="Name"
+                onInput={e => setName(e.target.value)}
+                value={name}
+            ></InputOutline>
+            <InputOutline
+                label="Secret"
+                multiline
+                type="password"
+                name="password-new"
+                value={secret}
+                onInput={e => setSecret(e.target.value)}
+            ></InputOutline>
+            <InputOutline
+                label="Key"
+                type="password"
 
-                </ButtonGroup>
-            </form>
+                name="password-new"
+                value={key}
+                onInput={e => setKey(e.target.value)}
+            ></InputOutline>
+            <ButtonGroup
+                color="success"
+                style={{ alignSelf: "center" }}
+            >
+                <Button onClick={clear}>
+                    <RestartAlt />
+                    Clear
+                </Button>
+                <Button
+                    onClick={setMainKeyAsKey}
+                >
+                    <KeyIcon />
+                    Use main key
+                </Button>
+
+            </ButtonGroup>
         </Paper>
-        
     </>
 }

@@ -1,11 +1,10 @@
-import { List, ListItemButton, ListItemText, AppBar, Toolbar } from "@mui/material";
+import { List, ListItemButton, ListItemText } from "@mui/material";
 import { useLiveQuery } from "dexie-react-hooks"
 import { Link } from "react-router-dom";
-import AppTitle from "../components/AppTitle";
 import { db } from "../db"
 import { SearchBar } from "../components/SearchBar";
 import { useState } from "react";
-
+import TopBar from "../components/TopBar";
 /**
  * @param {{sekre:import("./db").Sekre}} param0 
  */
@@ -14,14 +13,14 @@ export function Item({ sekre, ...props }) {
         component={Link}
         to={`/auth/${sekre.id}`}
         state={{ sekre }}
-        sx={{
+        sx={theme => ({
             boxShadow: 1,
-            color: "white",
-            backgroundColor: "#191919",
+            color: theme.palette.text.primary,
+            backgroundColor: theme.palette.mode == "dark" ? "#191919" : "auto",
             fontStyle: "italic",
             fontFamily: "Segoe UI", //doesn't work
             fontWeight: "lighter"   //doesn't work
-        }}
+        })}
         {...props}
     >
         <ListItemText
@@ -35,31 +34,27 @@ export default function ListPage() {
 
     const secrets = useLiveQuery(() =>
         query.length ? db.secrets.filter(sekre => sekre.name.includes(query)).toArray()
-        : db.secrets.toArray()
+            : db.secrets.toArray()
         , [query])
     return <>
-        <AppBar position="sticky">
-            <Toolbar sx={{ alignItems: "start", rowGap: "1vh", backgroundColor: "#000", color: 'white', py: 2 }}>
-                <AppTitle style={{ color: "white", fontFamily: "Segoe UI" }}>
-                    Manage Secrets
-                </AppTitle>
-                {/* TODO: Filter list with input */}
-                <SearchBar
-                    sx={{ color: 'white', backgroundColor: "#121212", p: 1 }}
-                    value={query}
-                    onInput={e => setQuery(e.target.value)}
-                />
-            </Toolbar>
-        </AppBar>
+        <TopBar
+            title="Manage Secrets"
+        />
+        <SearchBar
+            value={query}
+            onInput={e => setQuery(e.target.value)}
+            style={{
+                marginTop:"1vh"
+            }}
+        />
         <List
             sx={{
                 overflowY: "auto",
                 display: "flex",
                 flexDirection: "column",
                 color: "white",
-                rowGap: "1vh",
+                rowGap: "2vh",
             }}
-
         >
             {secrets?.map(sekre =>
                 <Item

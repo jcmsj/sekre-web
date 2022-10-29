@@ -63,32 +63,35 @@ export default function EditPage() {
     </>
 }
 
+export function ThemedListItemButton(props) {
+    return <ListItemButton
+        sx={theme => ({
+            color: theme.palette.text.primary
+        })}
+        {...props}
+    />
+}
 export function Preview({ preview, ...props }) {
     return <>
-        <ListItemButton
-            sx={theme => ({
-                color: theme.palette.primary.contrastText
-            })}
+        <ThemedListItemButton
             {...props}
         >
             <ListItemIcon
-                sx={{ color: "inherit" }}
             >
                 {preview == "" ?
-                    <Visibility sx={{ color: "inherit" }} /> : <VisibilityOff sx={{ color: "inherit" }} />
+                    <Visibility /> : <VisibilityOff />
                 }
             </ListItemIcon>
             <ListItemText>
                 Tap to {preview == "" ? "reveal" : "hide"}
             </ListItemText>
-        </ListItemButton>
+        </ThemedListItemButton>
         <ListItem
             sx={theme => ({
-                color: theme.palette.primary.contrastText
+                color: theme.palette.text.primary
             })}
         >
             <ListItemText
-                sx={{ color: "inherit" }}
             >
                 {preview}
             </ListItemText>
@@ -97,21 +100,16 @@ export function Preview({ preview, ...props }) {
 }
 
 export function Copier(props) {
-    return <ListItemButton
-        sx={theme => ({
-            color: theme.palette.primary.contrastText
-        })}
+    return <ThemedListItemButton
         {...props}
     >
         <ListItemIcon
-            sx={{ color: "inherit" }}
         >
             <ContentCopy
-                sx={{ color: "inherit" }}
             />
         </ListItemIcon>
         <ListItemText>
             Copy
         </ListItemText>
-    </ListItemButton>
+    </ThemedListItemButton>
 }

@@ -6,20 +6,18 @@ import AppTitle from "./AppTitle";
 
 function ArrowButton(props) {
     return <Button
+        color="inherit"
         {...props}
     >
-        <ArrowBack
-            sx={theme => ({
-                color: theme.palette.primary.contrastText
-            })}
-        />
+        <ArrowBack />
     </Button>;
 }
 /**
  * @param {{
  *  cancellable:boolean,
- *  onBack
- *  title:string
+ *  onBack:() => void,
+ *  title:string,
+ * toolBarProps:import("@mui/material").ToolbarProps,
  * } & import("React").PropsWithChildren} param0 
  * @returns 
  */
@@ -28,12 +26,12 @@ export default function TopBar({ cancellable, onBack, children, title, toolBarPr
     const goBack = () => onBack ? onBack() : navigate(-1);
     return <AppBar
         position="sticky"
+        sx={theme => theme.palette.mode == "dark" ? {
+            background:"black",
+        }:{}}
         {...props}
     >
         <Toolbar
-            style={{
-                backgroundColor: "#000"
-            }}
             {...toolBarProps}
         >
             {(cancellable ?? onBack) ?
