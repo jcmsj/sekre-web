@@ -8,6 +8,7 @@ import useClear from "../lib/useClear"
 import { InputOutline } from "../components/InputOutline"
 import TopBar from "../components/TopBar"
 import { Paper } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 /**
  * @type {React.CSSProperties}
  */
@@ -26,6 +27,8 @@ export default function CreationPage(props) {
     const clear = useClear(setName, setSecret, setKey)
     const [isInvalid, setValidty] = useState(true)
     const mainKey = useMainKey()
+    const navigate = useNavigate()
+    
     useEffect(() => {
         setValidty(
             [secret, key, name].some(input => input.length <= 0)
@@ -39,6 +42,7 @@ export default function CreationPage(props) {
                 keyID: mainKey.id,
                 targetID: id
             })
+            navigate("/")
         }
         clear()
     }
