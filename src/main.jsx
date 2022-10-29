@@ -8,10 +8,12 @@ import SettingsPage from './routes/Settings'
 import EditPage from './routes/EditPage'
 import "./layout.css"
 import AuthPage from './routes/AuthPage'
+import ErrorCatcher from './routes/ErrorCatcher'
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorCatcher />,
     children: [
       {
         path: "",
