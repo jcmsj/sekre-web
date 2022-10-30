@@ -22,7 +22,26 @@ export default defineConfig({
         background_color: "white",
         theme_color: "#FFFFFF",
         icons: [
-
+          {
+            "src": "/sekre.webp",
+            "sizes": "1024x1024",
+            "type": "image/webp"
+          },
+          {
+            "src": "/sekre-opaque.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+            "purpose": "maskable"
+          },
+          {
+            "src": "/sekre-transparent.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+          },
+          {
+            "src": "/favicon.png",
+            "sizes": "196x196",
+          }
         ]
       }
     }),

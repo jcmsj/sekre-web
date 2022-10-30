@@ -4,7 +4,7 @@
 ## Client-side storage
 - [x] [Dexie](https://dexie.org/docs/Tutorial/React).
 ### Persist data (Own table)
-- x] Store `main key`.
+- [x] Store `main key`.
 - [x] Table containing IDs of secrets that use the `main key`.
 - [X] Secrets table.
   
@@ -82,3 +82,8 @@ _buttons displayed from right to left._
 - [x] On first time visit, setup `main key` reuse `Auth`.
 - [ ] LOGO - try SUQUI.
 - [ ] Guided tutorial (optional).
+
+# PWA installation
+ - [x] Icons by SUQUI
+ - [x] Chromium
+ - [x] Safari
