@@ -58,7 +58,7 @@ function Read() {
         }}>
             <FileUpload />
             <ListItemText>
-                Import
+                &nbsp;Import
             </ListItemText>
         </ThemedListItemButton>
     </>;
@@ -97,7 +97,7 @@ function Save() {
         >
             <FileDownload />
             <ListItemText>
-                Export
+            &nbsp;Export
             </ListItemText>
         </ThemedListItemButton>
     </>

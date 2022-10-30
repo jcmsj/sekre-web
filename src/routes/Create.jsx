@@ -98,14 +98,14 @@ export default function CreationPage(props) {
             >
                 <Button onClick={clear}>
                     <RestartAlt />
-                    Clear
+                    &nbsp;Clear
                 </Button>
                 <Button
                     variant="contained"
                     onClick={setMainKeyAsKey}
                 >
                     <KeyIcon />
-                    Use main key
+                    &nbsp;Use main key
                 </Button>
 
             </ButtonGroup>
