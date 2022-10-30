@@ -53,7 +53,7 @@ _buttons displayed from right to left._
   - [x] UI
   - [x] Logic
   - [x] Confirmation prompt
-- [ ] Edit (optional)
+- [ ] Edit (cancelled)
 - [x] Show
   - [x] UI
   - [x] Logic
@@ -74,14 +74,14 @@ _buttons displayed from right to left._
   - [x] Submit
 
 ## Settings (Major)
-- [ ] About the app - try SUQUI.
-- [ ] About the devs - try SUQUI.
+- [ ] About the app
+- [ ] About the devs (cancelled)
 - [x] Export data.
 - [x] Import data.
 ## Splash screen
 - [x] On first time visit, setup `main key` reuse `Auth`.
-- [ ] LOGO - try SUQUI.
-- [ ] Guided tutorial (optional).
+- [x] LOGO - by SUQUI.
+- [ ] Guided tutorial (cancelled).
 
 # PWA installation
  - [x] Icons by SUQUI

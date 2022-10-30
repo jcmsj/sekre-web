@@ -13,8 +13,8 @@ export default defineConfig({
         enabled: true
       },
       manifest: {
-        name: "sekre-web",
-        short_name: "sekre-web",
+        name: "Sekre",
+        short_name: "Sekre",
         start_url: "/",
         display: "standalone",
         lang: "en",
