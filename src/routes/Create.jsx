@@ -1,5 +1,5 @@
 import { CheckOutlined, Key as KeyIcon, RestartAlt } from "@mui/icons-material"
-import { Button, ButtonGroup } from "@mui/material"
+import { Button, ButtonGroup, IconButton } from "@mui/material"
 import { useEffect } from "react"
 import { useState } from "react"
 import { db, useMainKey } from "../db"
@@ -9,6 +9,7 @@ import { InputOutline } from "../components/InputOutline"
 import TopBar from "../components/TopBar"
 import { Paper } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import PasswordField from "../components/PasswordField"
 /**
  * @type {React.CSSProperties}
  */
@@ -28,7 +29,7 @@ export default function CreationPage(props) {
     const [isInvalid, setValidty] = useState(true)
     const mainKey = useMainKey()
     const navigate = useNavigate()
-    
+
     useEffect(() => {
         setValidty(
             [secret, key, name].some(input => input.length <= 0)
@@ -51,16 +52,15 @@ export default function CreationPage(props) {
         <TopBar
             title="New Secret"
         >
-            <Button
+            <IconButton
                 onClick={onCreate}
                 disabled={isInvalid}
                 sx={{
-                    borderRadius:10,
+                    borderRadius: 10,
                 }}
-                color="inherit"
             >
-                <CheckOutlined fontSize="large"/>
-            </Button>
+                <CheckOutlined fontSize="large" />
+            </IconButton>
         </TopBar>
         <Paper
             elevation={24}
@@ -72,7 +72,7 @@ export default function CreationPage(props) {
                     backgroundColor: '#1c1c1c',
                     color: 'white',
                     boxShadow: "0px 0px 18px -3px rgba(0,0,0,1) inset",
-                    backgroundImage:"unset"
+                    backgroundImage: "unset"
                 } : {})
             })}>
             <InputOutline
@@ -80,22 +80,18 @@ export default function CreationPage(props) {
                 onInput={e => setName(e.target.value)}
                 value={name}
             ></InputOutline>
-            <InputOutline
+            <PasswordField
                 label="Secret"
-                multiline
-                type="password"
                 name="password-new"
                 value={secret}
                 onInput={e => setSecret(e.target.value)}
-            ></InputOutline>
-            <InputOutline
+            />
+            <PasswordField
                 label="Key"
-                type="password"
-
                 name="password-new"
                 value={key}
                 onInput={e => setKey(e.target.value)}
-            ></InputOutline>
+            />
             <ButtonGroup
                 color="success"
                 style={{ alignSelf: "center" }}

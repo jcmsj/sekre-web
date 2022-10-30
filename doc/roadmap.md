@@ -35,7 +35,7 @@
 - [x] Use main password.
 - [x] Generate `key` (browser dependent).
 - [x] Clear inputs.
-- [ ] Visibility toggles for `key` and `secret`.
+- [x] Visibility toggles for `key` and `secret`.
 - [x] Submit button
     - [x] UI.
     - [x] Logic.
@@ -68,7 +68,7 @@ _buttons displayed from right to left._
   - [x] Before `key field`.
   - [x] After `key field`. 
 - [x] Show `key field`.
-- [ ] Button to toggle `key` visibility.
+- [x] Button to toggle `key` visibility.
 - [x] Major buttons
   - [x] Go back
   - [x] Submit

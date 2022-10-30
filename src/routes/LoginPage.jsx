@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
-import { InputOutline } from "../components/InputOutline";
+import PasswordField from "../components/PasswordField";
 import TopBar from "../components/TopBar";
 import { useAuth } from "../db";
 import { useCounter } from "../lib/useCounter";
@@ -83,10 +83,9 @@ export function AuthForm({ intent, siblingsBefore, siblingsAfter, onSubmit, canc
             }}
         >
             {siblingsBefore}
-            <InputOutline
-                label="Key"
+            <PasswordField
+                label="Password"
                 value={input}
-                type="password"
                 onInput={e => setInput(e.target.value)}
                 {...inputProps}
             />

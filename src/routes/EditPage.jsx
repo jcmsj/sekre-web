@@ -1,5 +1,5 @@
 import { ContentCopy, VisibilityOff, Visibility, Delete } from "@mui/icons-material";
-import { Button, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { IconButton, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, } from "react-router-dom";
@@ -44,7 +44,7 @@ export default function EditPage() {
 
     return <>
         <TopBar
-            title={`Edit : ${sekre?.name ?? ""}`}
+            title={`View secret`}
             toolBarProps={{
                 sx: { columnGap: "1vw" }
             }}
@@ -52,7 +52,16 @@ export default function EditPage() {
         >
             <Deletion sekre={sekre} />
         </TopBar>
-        <List>
+        <List
+            sx={theme => ({
+                color: theme.palette.text.primary
+            })}
+        >
+            <ListItem>
+                <Typography variant="h6">
+                    Name:&nbsp;{sekre.name}
+                </Typography>
+            </ListItem>
             <Preview
                 onClick={toggleVisibility}
                 preview={preview}
@@ -67,10 +76,9 @@ export default function EditPage() {
 /**
  * @param {{sekre:import("../db").Sekre}} param0 
  */
-export function Deletion({sekre}) {
+export function Deletion({ sekre }) {
     const navigate = useNavigate()
-    return <Button
-        color="inherit"
+    return <IconButton
         onClick={() => {
             if (confirm(`Are you sure you want to delete: ${sekre.name}?`)) {
                 db.chains.delete(sekre.id);
@@ -80,7 +88,7 @@ export function Deletion({sekre}) {
         }}
     >
         <Delete />
-    </Button>
+    </IconButton>
 }
 export function Preview({ preview, ...props }) {
     return <>
@@ -97,11 +105,7 @@ export function Preview({ preview, ...props }) {
                 Tap to {preview == "" ? "reveal" : "hide"}
             </ListItemText>
         </ThemedListItemButton>
-        <ListItem
-            sx={theme => ({
-                color: theme.palette.text.primary
-            })}
-        >
+        <ListItem>
             <ListItemText
             >
                 {preview}

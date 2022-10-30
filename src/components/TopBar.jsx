@@ -1,16 +1,15 @@
 import { ArrowBack } from "@mui/icons-material";
-import { AppBar, Button, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AppTitle from "./AppTitle";
 
 
 function ArrowButton(props) {
-    return <Button
-        color="inherit"
+    return <IconButton
         {...props}
     >
         <ArrowBack />
-    </Button>;
+    </IconButton>;
 }
 /**
  * @param {{
