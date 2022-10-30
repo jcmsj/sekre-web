@@ -51,15 +51,15 @@ export default function CreationPage(props) {
         <TopBar
             title="New Secret"
         >
-
             <Button
                 onClick={onCreate}
                 disabled={isInvalid}
                 sx={{
-                    color: "inherit",
+                    borderRadius:10,
                 }}
+                color="inherit"
             >
-                <CheckOutlined />
+                <CheckOutlined fontSize="large"/>
             </Button>
         </TopBar>
         <Paper
@@ -105,6 +105,7 @@ export default function CreationPage(props) {
                     Clear
                 </Button>
                 <Button
+                    variant="contained"
                     onClick={setMainKeyAsKey}
                 >
                     <KeyIcon />
