@@ -1,30 +1,40 @@
 import { FileDownload, FileUpload } from "@mui/icons-material";
 import { List, ListItemText, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { ThemedListItemButton } from "../components/ThemedListItemButton";
 import TopBar from "../components/TopBar";
-import { db } from "../db";
-const MIME = "application/json"
+import { db, getKey, useAuth } from "../db";
+import { decrypt, encrypt } from "../lib/cipher";
 export default function SettingsPage() {
     return <>
         <TopBar
             title="Settings"
         >
         </TopBar>
-        <div style={{
-            padding:"2vh 2vw"
-        }}>
-            <Typography variant="h5" color="primary">
+        <Box
+            sx={theme => ({
+                color: theme.palette.text.primary,
+                padding: "2vh 2vw"
+            })}
+        >
+            <Typography
+                variant="h5"
+                color="primary"
+            >
                 Data
             </Typography>
             <List>
                 <Read />
                 <Save />
             </List>
-            <Typography variant="h5" color="primary">
+            <Typography
+                variant="h5"
+                color="primary"
+            >
                 About
             </Typography>
             {/* Other parts here */}
-        </div>
+        </Box>
     </>
 }
 
@@ -53,10 +63,29 @@ function Read() {
         </ThemedListItemButton>
     </>;
 }
+const MIME = "application/json"
 
 function Save() {
+    const auth = useAuth()
     /** @type {HTMLAnchorElement} */
     let anchor;
+
+    async function onClick(e) {
+        const input = prompt("Enter main key to continue:");
+        if (input === null) { //Cancel
+            return;
+        }
+
+        if (!auth(input)) {
+            alert("Incorrect key")
+            return
+        }
+
+        anchor.href = generateFile(
+            await generateData({ keyReplacement: input })
+        )
+        anchor?.click()
+    }
     return <>
         <a
             hidden
@@ -64,10 +93,7 @@ function Save() {
             ref={self => anchor = self}
         />
         <ThemedListItemButton
-            onClick={async () => {
-                anchor.href = await generateFile()
-                anchor?.click()
-            }}
+            onClick={onClick}
         >
             <FileDownload />
             <ListItemText>
@@ -94,9 +120,44 @@ async function parseFile(file) {
     const id = await db.secrets.bulkPut(maybeJSON.map(({ name, secret }) => ({ name, secret })))
 }
 
-async function generateFile() {
-    const data = await db.secrets.toArray();
-    const text = JSON.stringify(data);
+/**
+ * @type {import("../db").Sekre[]}
+ */
+function generateFile(secrets) {
+    const text = JSON.stringify(secrets);
     const blob = new Blob([text], { type: MIME, })
     return URL.createObjectURL(blob)
+}
+
+/**
+ * @param {{keyReplacement:string}} param0 
+ * @implNote For all secrets that use the main key, replace it with the raw version.
+ * @returns {Promise<import("../db").Sekre[]>}
+ */
+async function generateData({ keyReplacement }) {
+    const mainKey = await getKey();
+    const secrets = await db.secrets.toArray();
+    return Promise.all(secrets.map(async(sekre) => {
+        const maybeChain = await db.chains.get({ targetID: sekre.id });
+
+        if (maybeChain) {
+            try {
+                sekre.secret = reencrypt({
+                    secret: sekre.secret, 
+                    former:mainKey.secret, 
+                    replacement:keyReplacement
+                })
+            } catch (error) {
+                console.log(error);
+                //PASS
+            }
+        }
+
+        return sekre;
+    }))
+}
+
+export function reencrypt({secret, former, replacement }) {
+    const raw = decrypt(secret)(former)
+    return encrypt(raw)(replacement);
 }

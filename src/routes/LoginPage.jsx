@@ -3,8 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { InputOutline } from "../components/InputOutline";
 import TopBar from "../components/TopBar";
-import { useMainKey } from "../db";
-import { obscure } from "../lib/cipher";
+import { useAuth } from "../db";
 import { useCounter } from "../lib/useCounter";
 
 const MAX_ATTEMPTS = 5;
@@ -13,13 +12,10 @@ const MAX_ATTEMPTS = 5;
  * @param {import("react").SetStateAction<boolean>} param0 
  */
 export function LoginForm({ setAuth }) {
-    const first = useMainKey()
     const { count: attemptsLeft, decrement } = useCounter(MAX_ATTEMPTS);
-
-    async function authenticate(key) {
-        const result = obscure(key) == first.secret
-        setAuth(result)
-        result ? setAuth(result) : decrement()
+    const auth = useAuth();
+    function authenticate(key) {
+        auth(key) ? setAuth(true) : decrement()
     }
 
     useEffect(() => {
