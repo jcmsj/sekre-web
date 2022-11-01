@@ -33,6 +33,9 @@ export default function SettingsPage() {
             >
                 About
             </Typography>
+            <Typography>
+                Sekre is a password manager app, it aims to keep your passwords and secrets. <br /><b>“Sekre”</b> is a Norwegian word that means secure, and it is the main goal of Sekre -<br /> To keep your passwords and secrets secure.
+            </Typography>
             {/* Other parts here */}
         </Box>
     </>
@@ -97,7 +100,7 @@ function Save() {
         >
             <FileDownload />
             <ListItemText>
-            &nbsp;Export
+                &nbsp;Export
             </ListItemText>
         </ThemedListItemButton>
     </>
@@ -137,15 +140,15 @@ function generateFile(secrets) {
 async function generateData({ keyReplacement }) {
     const mainKey = await getKey();
     const secrets = await db.secrets.toArray();
-    return Promise.all(secrets.map(async(sekre) => {
+    return Promise.all(secrets.map(async (sekre) => {
         const maybeChain = await db.chains.get({ targetID: sekre.id });
 
         if (maybeChain) {
             try {
                 sekre.secret = reencrypt({
-                    secret: sekre.secret, 
-                    former:mainKey.secret, 
-                    replacement:keyReplacement
+                    secret: sekre.secret,
+                    former: mainKey.secret,
+                    replacement: keyReplacement
                 })
             } catch (error) {
                 console.log(error);
@@ -157,7 +160,7 @@ async function generateData({ keyReplacement }) {
     }))
 }
 
-export function reencrypt({secret, former, replacement }) {
+export function reencrypt({ secret, former, replacement }) {
     const raw = decrypt(secret)(former)
     return encrypt(raw)(replacement);
 }
