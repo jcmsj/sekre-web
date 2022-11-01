@@ -8,7 +8,6 @@ import useClear from "../lib/useClear"
 import { InputOutline } from "../components/InputOutline"
 import TopBar from "../components/TopBar"
 import { Paper } from "@mui/material"
-import { useNavigate } from "react-router-dom"
 import PasswordField from "../components/PasswordField"
 /**
  * @type {React.CSSProperties}
@@ -28,7 +27,6 @@ export default function CreationPage(props) {
     const clear = useClear(setName, setSecret, setKey)
     const [isInvalid, setValidty] = useState(true)
     const mainKey = useMainKey()
-    const navigate = useNavigate()
 
     useEffect(() => {
         setValidty(
@@ -38,12 +36,11 @@ export default function CreationPage(props) {
 
     const onCreate = async (e) => {
         const id = await db.secrets.add({ name, secret: encrypt(secret)(key) })
-        if (key == mainKey.secret) {
+        if (key == mainKey.secret) { // Add entry to keychains
             await db.chains.add({
                 keyID: mainKey.id,
                 targetID: id
             })
-            navigate("/")
         }
         clear()
     }
